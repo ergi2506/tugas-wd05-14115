@@ -16,17 +16,24 @@ class ObatController extends Controller
 
     public function store(Request $request){
         // request akan membawa data dari form yang ada di frontend blade
+        
         $request->validate([
             'nama_obat' => 'required|string',
             'kemasan' => 'required|string',
             'harga' => 'required|integer'
         ]);
+        
+         $obats = new Obat();
+         $obats->nama_obat = $request->nama_obat;
+         $obats->kemasan = $request->kemasan;
+         $obats->harga = $request->harga;
+         $obats->save();
 
-        Obat::create([
-            'nama_obat' => $request->nama_obat,
-            'kemasan' => $request->kemasan,
-            'harga' => $request->harga
-        ]);
+        // Obat::create([
+        //     'nama_obat' => $request->nama_obat,
+        //     'kemasan' => $request->kemasan,
+        //     'harga' => $request->harga
+        // ]);
 
         return redirect()->back();
     }
